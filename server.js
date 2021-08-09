@@ -3,21 +3,26 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const jwt = require('jsonwebtoken');
-const jwksClient = require('jwks-rsa');
+const getBooksSchema = require("./Modules/BookSchema");
+
 
 const app = express();
 app.use(cors());
-
 const PORT = process.env.PORT || 3001;
 
-app.get('/test', (request, response) => {
 
-  // TODO: 
-  // STEP 1: get the jwt from the headers
-  // STEP 2. use the jsonwebtoken library to verify that it is a valid jwt
-  // jsonwebtoken dock - https://www.npmjs.com/package/jsonwebtoken
-  // STEP 3: to prove that everything is working correctly, send the opened jwt back to the front-end
+//http://localhost:4444/books?email=farahsarese@gmail.com
+app.get('/books', (request, response) => {
+  let email=request.query.email;
+  getBooksSchema.find({email:email},function(error,data){
+    if(error){
+      console.log(" sorry, failed with some errors");
+    }
+    else{
+      console.log(data);
+      response.send(data);
+    }
+  })
 
 })
 
