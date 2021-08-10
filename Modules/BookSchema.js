@@ -79,12 +79,15 @@ const user4=new Users({
     books:[],
 })
 
-/* 
+
 user1.save();
 user2.save();
-user3.save(); */
+user3.save();
 user4.save();
+
 }
+
+
 bookSeeds();
 
 Users.find((err, person) => {

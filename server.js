@@ -4,11 +4,15 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const getBooksSchema = require("./Modules/BookSchema");
-
-
+const addBooksHandler=require('./Modules/AddBooks');
+const deleteData =require('./Modules/DeleteBook')
 const app = express();
 app.use(cors());
 const PORT = process.env.PORT || 3001;
+app.use(express.json());
+
+app.post('/addbooks',addBooksHandler);
+app.delete('/deleteBook/:index',deleteData);
 
 
 //http://localhost:4444/books?email=farahsarese@gmail.com
@@ -19,7 +23,7 @@ app.get('/books', (request, response) => {
       console.log(" sorry, failed with some errors");
     }
     else{
-      console.log(data);
+      //console.log(data);
       response.send(data);
     }
   })
