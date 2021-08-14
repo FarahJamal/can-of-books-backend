@@ -5,7 +5,8 @@ const express = require('express');
 const cors = require('cors');
 const getBooksSchema = require("./Modules/BookSchema");
 const addBooksHandler=require('./Modules/AddBooks');
-const deleteData =require('./Modules/DeleteBook')
+const deleteData =require('./Modules/DeleteBook');
+const updateBook=require('./Modules/UpdateBook');
 const app = express();
 app.use(cors());
 const PORT = process.env.PORT || 3001;
@@ -14,6 +15,7 @@ app.use(express.json());
 app.post('/addbooks',addBooksHandler);
 app.delete('/deleteBook/:index',deleteData);
 
+app.put('/updateBook/:index',updateBook);
 
 //http://localhost:4444/books?email=farahsarese@gmail.com
 app.get('/books', (request, response) => {
@@ -29,5 +31,4 @@ app.get('/books', (request, response) => {
   })
 
 })
-
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
