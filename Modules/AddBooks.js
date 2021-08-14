@@ -12,7 +12,7 @@ function addbooksHandler(req, res) {
   const {title,description,imageUrl,status,email} = req.body;
 console.log(description);
 
-  MongooseItems.find({ email: email }, (err, data) => {
+  MongooseItems.findOne({ email: email }, (err, data) => {
     if (err) {
       res.status(500).send("there is error");
     } else {

@@ -5,32 +5,28 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded());
+
 const MongooseItems = require("./BookSchema"); // this one is object cuz i export two things from mongoose-books
 
-
-
-function updateBook(req, res) {
-
-    const { name, description, status, image_url, email } = req.body;
-    //const name = req.body.name
-    //...
-    const index = Number(req.params.book_Index);
-    MongooseItems.findOne({ email: email }, (err, userData) => {
-        console.log(userData);
-   /*      userData.books.splice(index, 1, {
-            name: name,
-            description: description,
-            status: status,
-            image_url: image_url,
-        }) */
-        console.log('after splice',userData);
-        //userData.save();
-        //res.send(userData.books)
-
-
+function updateBook(req,res) {
+    const index = req.params.index;
+    const {title, description, imageUrl, status, email} = req.body;
+    MongooseItems.findOne({email:'farahsarese98@gmail.com'},(err,resultData) => {
+        resultData.books.splice(index,1,{
+            title : title,
+            description : description,
+            imageUrl:imageUrl,
+            status:status
+        })
+        resultData.save();
+        res.send(resultData.books);
     })
+  }
+  
+  
 
-}
+
 
 
 
